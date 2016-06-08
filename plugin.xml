@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="com.whatsapp.ext.plugin" version="0.0.2" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>Whats App Extension</name>
+    <description>A plugin for sending and reading WhatsApp messages</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,plugins,whatsapp</keywords>
+
+    <js-module name="WAExt" src="www/main.js">
+        <clobbers target="WAExt" />
+    </js-module>
+
+    <platform name="android">
+		<config-file parent="/*" target="res/xml/config.xml">
+			<feature name="whatsapp">
+				<param name="android-package" value="com.whatsapp.ext.plugin.WhatsAppExt" />
+			</feature>
+		</config-file>
+
+		<config-file target="AndroidManifest.xml" parent="/*">
+			<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+		</config-file>
+
+        <source-file src="src/android/Core.java" target-dir="src/com/whatsapp/ext/plugins/core" />
+    </platform>
+</plugin>
