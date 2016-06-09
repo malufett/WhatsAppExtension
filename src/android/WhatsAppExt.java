@@ -22,7 +22,7 @@ import android.telephony.SmsManager;
 
 public class WhatsAppExt extends CordovaPlugin {
     private enum Command {
-		SEND, READ;
+		SEND, READ, ERROR;
 	};
 	
     @Override
