@@ -21,25 +21,28 @@ import android.content.pm.PackageManager;
 import android.telephony.SmsManager;
 
 public class WhatsAppExt extends CordovaPlugin {
-    
+    private enum Command {
+		SEND, READ;
+	};
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 		JSONObject retval = new JSONObject();
 		retval.put("data", new JSONObject());
-		retval.put("status", Status.OK);
-    	switch(action){
-    		case "sendMessage":
+		Status status = Status.OK;
+		Command cmd = Command.valueOf(action);
+    	switch(cmd){
+    		case SEND:
     			retval.getJSONObject("data").put("code", StatusCode.SUCCESS_MSG_SENT);
 				break;
-			case "readMessage":
+			case READ:
     			retval.getJSONObject("data").put("code", StatusCode.SUCCESS_MSG_READ);
 				break;
 			default:		
-				retval.put("status", Status.ERROR);
+				status = Status.ERROR;
 				retval.getJSONObject("data").put("message", "Invalid command! Please try again.");
 				retval.getJSONObject("data").put("code", StatusCode.INVALID_CMD);
     	}        
-   		callbackContext.sendPluginResult(new PluginResult((Status)retval.getJSONObject("status"), retval.getJSONObject("data")));
+   		callbackContext.sendPluginResult(new PluginResult(status, retval.getJSONObject("data")));
         return true;
     }
         
