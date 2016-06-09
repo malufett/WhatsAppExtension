@@ -27,22 +27,21 @@ public class WhatsAppExt extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 		JSONObject retval = new JSONObject();
-		retval.put("data", new JSONObject());
 		Status status = Status.OK;
 		Command cmd = Command.valueOf(action);
     	switch(cmd){
     		case SEND:
-    			retval.getJSONObject("data").put("code", StatusCode.SUCCESS_MSG_SENT);
+    			retval.put("code", StatusCode.SUCCESS_MSG_SENT);
 				break;
 			case READ:
-    			retval.getJSONObject("data").put("code", StatusCode.SUCCESS_MSG_READ);
+    			retval.put("code", StatusCode.SUCCESS_MSG_READ);
 				break;
 			default:		
 				status = Status.ERROR;
-				retval.getJSONObject("data").put("message", "Invalid command! Please try again.");
-				retval.getJSONObject("data").put("code", StatusCode.INVALID_CMD);
+				retval.put("message", "Invalid command! Please try again.");
+				retval.put("code", StatusCode.INVALID_CMD);
     	}        
-   		callbackContext.sendPluginResult(new PluginResult(status, retval.getJSONObject("data")));
+   		callbackContext.sendPluginResult(new PluginResult(status, retval));
         return true;
     }
         
