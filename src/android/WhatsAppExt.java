@@ -27,7 +27,6 @@ public class WhatsAppExt extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 		JSONObject retval = new JSONObject();
-		Status status = Status.OK;
 		Command cmd = Command.valueOf(action);
     	switch(cmd){
     		case SEND:
@@ -40,8 +39,10 @@ public class WhatsAppExt extends CordovaPlugin {
 				status = Status.ERROR;
 				retval.put("message", "Invalid command! Please try again.");
 				retval.put("code", StatusCode.INVALID_CMD);
+		   		callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, retval));
+		        return false;
     	}        
-   		callbackContext.sendPluginResult(new PluginResult(status, retval));
+   		callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, retval));
         return true;
     }
         
