@@ -39,7 +39,7 @@ public class WhatsAppExt extends CordovaPlugin {
 				retval.getJSONObject("data").put("message", "Invalid command! Please try again.");
 				retval.getJSONObject("data").put("code", StatusCode.INVALID_CMD);
     	}        
-   		callbackContext.sendPluginResult(new PluginResult(retval.getJSONObject("status"), retval.getJSONObject("data")));
+   		callbackContext.sendPluginResult(new PluginResult((Status)retval.getJSONObject("status"), retval.getJSONObject("data")));
         return true;
     }
         
